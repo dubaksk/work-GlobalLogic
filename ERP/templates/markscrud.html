@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action='./add_marks' method="POST">
 
-
-</form>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <title>Marks</title>
+   </head>
+   <body>
+      <h1>Add Marks</h1>
+      <form method="POST" action="./add">
+         <input type="text" placeholder="admission number" name="admno">
+         <br>
+         <input type="text" placeholder="marks" name="marks">
+         <br>
+         <input type="text" placeholder="teacher id" name="id">
+         <br>
+         <input type="submit" name = 'add' value="add">
+      </form>
+{#   <form method="POST" action="./delete">#}
+{#         <input type="text" placeholder="admission number" name="admno">#}
+{##}
+{#         <input type="text" placeholder="marks" name="marks">#}
+{##}
+{#         <input type="text" placeholder="teacher id" name="id">#}
+{##}
+{#         <input type="submit" name = 'delete' value="delete">#}
+{#      </form>#}
+   </body>
 </html>

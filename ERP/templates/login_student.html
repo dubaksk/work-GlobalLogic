@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<link rel="stylesheet" href="/static/loginstyle.css" type="text/css">
+<form action='./loginstudent' method="POST">
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Login Student</h1>
+			</div>
+			<div class="login-form">
+				<div class="control-group">
+					<input type="text" class="login-field" placeholder="admission number" name="admno">
+					<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+				<div class="control-group">
+					<input type="password" class="login-field" placeholder="password" name="password">
+					<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
+				<input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
+			</div>
+		</div>
+	</div>
+</form>

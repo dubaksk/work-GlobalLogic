@@ -1,0 +1,89 @@
+
+from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
+from models import *
+import os
+from sqlalchemy.orm import sessionmaker
+
+app = Flask(__name__)
+
+POSTGRES = {
+    'user': 'postgres',
+    'pw': 'sid',
+    'db': 'book',
+    'host': 'localhost',
+    'port': '5432',
+}
+
+app.config['DEBUG'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
+%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
+
+
+# @app.route('/')
+# def home():
+#     return 'Hello World'
+    # if not session.get('logged_in'):
+    #  return render_template('login_teacher.html')
+    # else:
+    #     return "Hello Boss!"
+
+
+@app.route('/', methods=['GET', 'POST'])
+def teacherlogin():
+    # import pdb
+    # pdb.set_trace()
+    # render_template('login_teacher.html')
+    print("\n-----------------request.method-------------\n")
+    print(request.method)
+    print("\n------------------------------\n")
+    if request.method == 'POST':
+        u_name = request.form.get('username')
+        u_pwd = request.form.get('password')
+        obj = Teacher.query.filter(Teacher.name == u_name, Teacher.password == u_pwd).first()
+        if obj is not None:
+            print("\n-----------------name : ")
+            print(obj.name)
+            print("\n-----------------pwd : ")
+            print(obj.password)
+            return "Mila !"
+        else:
+            return "Nahi Mila !"
+        # import pdb
+        # pdb.set_trace()
+        # if request.form.get('username') == Teacher.id and request.form.get('password') == Teacher.password:
+        #     return render_template('marks.html')
+        # return "DAMN It"
+
+    else:
+        return render_template('login_teacher.html')
+
+
+# @app.route("/add",methods=['GET','POST'])
+# def add_teacher():
+#     new = Teacher(id=2, subcode='EN', name='aditya',password='aditya')
+#
+#     db.session.add(new)
+#     db.session.commit()
+#     return 'New entry added'
+
+# @app.route("/add",methods=['GET','POST'])
+# def add_student():
+#     new = student(id=1002, ecode='EN', Name='Aditya')
+#
+#     db.session.add(new)
+#     db.session.commit()
+
+
+@app.route("/add_marks",methods=['GET','POST'])
+def crud():
+    new = Teacher(id=2, subcode='EN', name='aditya',password='aditya')
+
+    db.session.add(new)
+    db.session.commit()
+    return 'New entry added'
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
