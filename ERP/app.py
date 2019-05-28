@@ -94,14 +94,14 @@ def delete():
     db.session.commit()
     return 'record removed'
 
-# @app.route("/addoption")
-# def addoption():
-#
-#     return render_template('markscrud.html')
-#
-# @app.route("/deleteoption")
-# def deleteoption():
-#     return render_template('marksdelete.html')
+@app.route("/addoption")
+def addoption():
+
+    return render_template('markscrud.html')
+
+@app.route("/deleteoption")
+def deleteoption():
+    return render_template('marksdelete.html')
 
 
 if __name__ == '__main__':
