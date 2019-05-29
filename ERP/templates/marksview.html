@@ -1,0 +1,17 @@
+<!doctype html>
+<body>
+  <form action="./delete" method="get">
+    <table border = 1>
+      {% for i,j in view.items() %}
+      <tr>
+        <th> {{ i }} </th>
+        <td> {{ j }}</td>
+        <td>
+          <button type="submit">DELETE</button>
+        </td>
+      </tr>
+      {% endfor %}
+      {#    {% endfor %}#}
+    </table>
+  </form>
+</body>

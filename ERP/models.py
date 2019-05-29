@@ -9,7 +9,6 @@ db = SQLAlchemy()
 class Teacher(db.Model):
     __tablename__ = 'teacher'
     id = db.Column(db.Integer, primary_key=True)
-    # subcode = db.Column(db.String(80))
     name = db.Column(db.String(80))
     password = db.Column(db.String(80))
 
@@ -22,8 +21,24 @@ class Student(db.Model):
     section = db.Column(db.String(80))
     Name = db.Column(db.String(80))
     password = db.Column(db.String(80))
+    authenticated = db.Column(db.Boolean, default=False)
     id = db.Column(db.Integer, ForeignKey('teacher.id'))
 
+    def is_active(self):
+        """True, as all users are active."""
+        return True
+
+    def get_id(self):
+        """Return the email address to satisfy Flask-Login's requirements."""
+        return self.admno
+
+    def is_authenticated(self):
+        """Return True if the user is authenticated."""
+        return self.authenticated
+
+    def is_anonymous(self):
+        """False, as anonymous users aren't supported."""
+        return False
 
 class Marks(db.Model):
     __tablename__ = 'marks'

@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+   <body>
+      <table border = 1>
+         <tr>
+             <th> {{'Admission Number'}} </th>
+             <th> {{'Marks'}} </th>
+             <th> {{'Teacher ID'}} </th>
+
+         </tr>
+          {% for i in result %}
+            <tr>
+                <td> {{ i.admno }} </td>
+                <td> {{ i.marks }} </td>
+                <td> {{ i.id}} </td>
+            </tr>
+         {% endfor %}
+      </table>
+   </body>
+</html>
