@@ -13,6 +13,12 @@ class Teacher(db.Model):
     password = db.Column(db.String(80))
 
 
+    def __init__(self, id,name,password):
+        self.id = id
+        self.name = name
+        self.password = password
+
+
 
 class Student(db.Model):
     __tablename__ = 'student'
@@ -21,8 +27,16 @@ class Student(db.Model):
     section = db.Column(db.String(80))
     Name = db.Column(db.String(80))
     password = db.Column(db.String(80))
-    authenticated = db.Column(db.Boolean, default=False)
-    id = db.Column(db.Integer, ForeignKey('teacher.id'))
+
+
+
+    def __init__(self, admno, section, Name, password, id):
+        self.admno = admno
+        self.section = section
+        self.Name = Name
+        self.password = password
+        self.id = id
+
 
     def is_active(self):
         """True, as all users are active."""
@@ -46,6 +60,9 @@ class Marks(db.Model):
     admno = db.Column(db.Integer, ForeignKey('student.admno'))
     marks = db.Column(db.Integer)
     id = db.Column(db.Integer, ForeignKey('teacher.id'))
+    # idt = relationship('Teacher.teacher.id', back_populates='teacher')
+    # studentadmno = relationship('Student')
+
 
     def __init__(self, admno,marks,id):
         self.admno = admno

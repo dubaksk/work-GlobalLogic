@@ -1,17 +1,30 @@
 <!doctype html>
 <body>
-  <form action="./delete" method="get">
+  <form action="./delete" method="GET">
     <table border = 1>
-      {% for i,j in view.items() %}
+      {% for i in mar %}
       <tr>
-        <th> {{ i }} </th>
-        <td> {{ j }}</td>
+        <th>Name: {{ i }}</th>
+      </tr>
+      <tr>
+        <th>Admission Number</th>
+        <th>Marks</th>
+      </tr>
+      {% for a in mar[i] %}
+      <tr>
+        <td>{{ a['admno'] }}</td>
+        <td>{{ a['marks'] }}</td>
         <td>
-          <button type="submit">DELETE</button>
+          <button>
+          <a href = "http://localhost:5000/delete/{{ a['admno'] }}/{{ a['marks'] }}">DELETE</a>
+          </button>
         </td>
       </tr>
       {% endfor %}
-      {#    {% endfor %}#}
+      <tr>
+        <td colspan="3" style=" padding: 5px; border: none; "></td>
+      </tr>
+      {% endfor %}
     </table>
   </form>
 </body>
