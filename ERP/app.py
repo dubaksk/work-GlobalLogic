@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, session, abort
 from models import *
-import pdb
 
 app = Flask(__name__)
 POSTGRES = {
@@ -12,7 +11,7 @@ POSTGRES = {
 }
 
 app.config['DEBUG'] = True
-engine= 'postgresql://%(user)s:\
+engine = 'postgresql://%(user)s:\
 %(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 app.config['SQLALCHEMY_DATABASE_URI'] = engine
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -25,10 +24,10 @@ def teacherlogin():
         u_name = request.form.get('id')
         u_pwd = request.form.get('password')
         obj = Teacher.query.filter(Teacher.name == u_name, Teacher.password == u_pwd).first()
-        all = Student.query.all()
+        all_query = Student.query.all()
         session["main_key"] = obj.id
         if obj is not None:
-            return render_template('options.html', all=all)
+            return render_template('options.html', all_query=all_query)
         else:
             abort(401)
     else:
@@ -36,7 +35,7 @@ def teacherlogin():
 
 
 @app.route("/viewteacher", methods=['POST', 'GET'])
-def viewMarks():
+def ViewMarks():
     mar = {}
     student = Student.query.all()
     marks = Marks.query.all()
@@ -47,8 +46,8 @@ def viewMarks():
         for m in marks:
             if m.admno == admno:
                 if m.id == session["main_key"]:
-                    mar[s.Name].append({'admno': m.admno, 'marks': m.marks})
-    return render_template('marksview.html',mar=mar)
+                    mar[s.Name].append({'admno': m.admno, 'marks': m.marks, 'index': m.no})
+    return render_template('marksview.html', mar=mar)
 
 @app.route('/loginstudent', methods=['GET', 'POST'])
 def studentlogin():
@@ -82,7 +81,7 @@ def add():
 
 
 @app.route("/delete/<admno>/<marks>", methods=['GET', 'POST'])
-def delete(admno,marks):
+def delete(admno, marks):
     queryrm = Marks.query.filter_by(admno=admno, marks=marks).all()
     for i in queryrm:
         db.session.delete(i)
@@ -90,9 +89,34 @@ def delete(admno,marks):
     return 'record removed'
 
 
+@app.route("/update", methods=['GET', 'POST'])
+def update():
+    if request.method == 'GET':
+        flag = 1
+        admno = request.values['admno']
+        marks = request.values['marks']
+        index = request.values['index']
+        return render_template('markscrud.html', flag=flag, admno=admno, marks=marks, index=index)
+    if request.method == 'POST':
+        admno = request.form.get('admno')
+        marks = request.form.get('marks')
+        marks_id = request.form.get('marks_id')
+
+        id = request.form.get('id')
+        if int(id) == session["main_key"]:
+
+            abc = db.session.query(Marks).filter(Marks.no == marks_id).all()
+            for a in abc:
+                a.marks = marks
+                a.admno = admno
+            db.session.commit()
+            return 'Record Updated'
+
+
 @app.route("/addoption")
 def addoption():
-    return render_template('markscrud.html')
+    flag = 0
+    return render_template('markscrud.html', flag=flag)
 
 
 if __name__ == '__main__':

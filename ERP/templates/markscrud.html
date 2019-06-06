@@ -4,15 +4,38 @@
   <title>Marks</title>
 </head>
 <body>
-  <h1>Add Marks</h1>
+  {% if flag == 0 %}
   <form method="POST" action="./add">
+    <h1>Add Marks</h1>
     <input type="text" placeholder="admission number" name="admno">
     <br>
-    <input type="text" placeholder="marks" name="marks">
+    <input type="text" placeholder="marks" name="marks" >
     <br>
     <input type="text" placeholder="teacher id" name="id">
     <br>
     <input type="submit" name = 'add' value="add">
+  </form>
+      {% endif %}
+
+  {% if flag == 1 %}
+  <form method="POST" action="./update">
+    <h1>Update Marks</h1>
+    <h5>Please fill all details.</h5>
+    Admission Number
+    <br>
+    <input type="text" placeholder="{{ admno }}" name="admno" value="{{ admno }}">
+    <br>
+    Marks
+    <br>
+    <input type="text" name="marks" value="{{ marks }}">
+    <br>
+    Teacher ID
+    <br>
+    <input type="text" name="id" value="1">
+    <br>
+    <input type="hidden" name="marks_id" value="{{ index }}">
+    <input type="submit">
+    {% endif %}
   </form>
 </body>
 </html>

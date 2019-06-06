@@ -64,7 +64,8 @@ class Marks(db.Model):
     # studentadmno = relationship('Student')
 
 
-    def __init__(self, admno,marks,id):
+    def __init__(self, no, admno,marks,id):
+        self.no = no
         self.admno = admno
         self.marks = marks
         self.id = id

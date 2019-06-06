@@ -19,6 +19,12 @@
           <a href = "http://localhost:5000/delete/{{ a['admno'] }}/{{ a['marks'] }}">DELETE</a>
           </button>
         </td>
+          <td>
+        <button>
+{#        <a href = "http://localhost:5000/update/{{ a['admno'] }}/{{ a['marks'] }}">UPDATE</a>#}
+        <a href = "http://localhost:5000/update?admno={{ a['admno'] }}&marks={{ a['marks'] }}&index={{ a['index'] }}">UPDATE</a>
+        </button>
+        </td>
       </tr>
       {% endfor %}
       <tr>
