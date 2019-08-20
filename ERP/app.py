@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, abort
 from models import *
-
+import pdb
 app = Flask(__name__)
 POSTGRES = {
     'user': 'postgres',
@@ -23,7 +23,7 @@ def teacherlogin():
     if request.method == 'POST':
         u_name = request.form.get('id')
         u_pwd = request.form.get('password')
-        obj = Teacher.query.filter(Teacher.name == u_name, Teacher.password == u_pwd).first()
+        obj = Teacher.query.filter(Teacher.id == u_name, Teacher.password == u_pwd).first()
         all_query = Student.query.all()
         session["main_key"] = obj.id
         if obj is not None:
@@ -71,6 +71,7 @@ def add():
         marks = request.form.get('marks')
         addid = request.form.get('id')
         loginid = str(session["main_key"])
+        # pdb.set_trace()
         if loginid == addid:
             query = Marks(admno, marks, addid)
             db.session.add(query)
@@ -120,5 +121,5 @@ def addoption():
 
 
 if __name__ == '__main__':
-    app.secret_key = 'super secret key'
+    app.secret_key = 'id number'
     app.run(debug=True)

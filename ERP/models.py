@@ -60,12 +60,8 @@ class Marks(db.Model):
     admno = db.Column(db.Integer, ForeignKey('student.admno'))
     marks = db.Column(db.Integer)
     id = db.Column(db.Integer, ForeignKey('teacher.id'))
-    # idt = relationship('Teacher.teacher.id', back_populates='teacher')
-    # studentadmno = relationship('Student')
-
-
-    def __init__(self, no, admno,marks,id):
-        self.no = no
+    
+    def __init__(self,admno,marks,id):
         self.admno = admno
         self.marks = marks
         self.id = id
